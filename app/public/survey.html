@@ -9,13 +9,37 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <style>
+        nav {
+            margin-bottom: 2em;
+        }
+    </style>
 </head>
 <body>
+    <nav>
+        <div class="nav-wrapper">
+            <a href="#!" class="brand-logo">Friend-Finder</a>
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger">
+                <i class="material-icons">menu</i>
+            </a>
+            <ul class="right hide-on-med-and-down">
+                <li>
+                    <a href="/api/friends" target="_blank">Friends API</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    
+    <ul class="sidenav" id="mobile-demo">
+        <li>
+            <a href="/api/friends" target="_blank">Friends API</a>
+        </li>
+    </ul>
     <!-- Modal Structure -->
     <div id="modal" class="modal">
         <div class="modal-content">
-            <h4>Modal Header</h4>
-            <p>A bunch of text</p>
+            <h4>You matched with:</h4>
         </div>
         <div class="modal-footer">
             <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
@@ -26,12 +50,19 @@
         <form class="col s12">
             <div class="row">
                 <div class="input-field col s6">
-                    <input placeholder="First Name" id="first_name" type="text"  required>
-                    <label for="first_name">First Name</label>
+                    <input placeholder="Name" id="name" type="text"  required>
+                    <label for="name">First Name</label>
                 </div>
                 <div class="input-field col s6">
-                    <input id="last_name" type="text" class="validate" required>
-                    <label for="last_name">Last Name</label>
+                    <input placeholder="example.com/foo.jpg" id="image_url" type="text" class="validate" required>
+                    <label for="image_url">Image URL</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s12">
+                    <input placeholder="Enter some text about yourself" id="about" type="text" class="validate" required>
+                    <label for="about">About you</label>
                 </div>
             </div>
             
@@ -40,11 +71,12 @@
                     <div class="input-field col s12">
                         <select id="q1" required>
                             <option value="" disabled selected>Choose your option</option>
-                            <option value="1">Option 1</option>
-                            <option value="2">Option 2</option>
-                            <option value="3">Option 3</option>
+                            <option value="1">Strongly Agree</option>
+                            <option value="2">Agree</option>
+                            <option value="3">Disagree</option>
+                            <option value="4">Strongly Disagree</option>
                         </select>
-                        <label>Materialize Select</label>
+                        <label>Do you enjoy adventure in your life?</label>
                     </div>
                 </div>
             </div>
@@ -54,11 +86,12 @@
                     <div class="input-field col s12">
                         <select id="q2" required>
                             <option value="" disabled selected>Choose your option</option>
-                            <option value="1">Option 1</option>
-                            <option value="2">Option 2</option>
-                            <option value="3">Option 3</option>
+                            <option value="1">Strongly Agree</option>
+                            <option value="2">Agree</option>
+                            <option value="3">Disagree</option>
+                            <option value="4">Strongly Disagree</option>
                         </select>
-                        <label>Materialize Select</label>
+                        <label>Do you have any pets</label>
                     </div>
                 </div>
             </div>
@@ -68,11 +101,12 @@
                     <div class="input-field col s12 required">
                         <select id="q3" required>
                             <option value="" disabled selected>Choose your option</option>
-                            <option value="1">Option 1</option>
-                            <option value="2">Option 2</option>
-                            <option value="3">Option 3</option>
+                            <option value="1">Strongly Agree</option>
+                            <option value="2">Agree</option>
+                            <option value="3">Disagree</option>
+                            <option value="4">Strongly Disagree</option>
                         </select>
-                        <label>Materialize Select</label>
+                        <label>Do you like dangerous fun?</label>
                     </div>
                 </div>
             </div>
@@ -82,11 +116,12 @@
                     <div class="input-field col s12">
                         <select id="q4" required>
                             <option value="" disabled selected>Choose your option</option>
-                            <option value="1">Option 1</option>
-                            <option value="2">Option 2</option>
-                            <option value="3">Option 3</option>
+                            <option value="1">Strongly Agree</option>
+                            <option value="2">Agree</option>
+                            <option value="3">Disagree</option>
+                            <option value="4">Strongly Disagree</option>
                         </select>
-                        <label>Materialize Select</label>
+                        <label>Will you give me your social security number when this is done?</label>
                     </div>
                 </div>
             </div>
@@ -101,6 +136,7 @@
     </div>
     <script>
         $(document).ready(function(){
+            $('.sidenav').sidenav();
             $('select').formSelect();
             $('.modal').modal();
 
@@ -117,8 +153,9 @@
             e.preventDefault();
 
             var data = {
-                first_name: $('#first_name').val(),
-                last_name: $('#last_name').val(),
+                about: $('#about').val(), 
+                name: $('#name').val(),
+                image_url: $('#image_url').val(),
                 answers: [
                     parseInt($('#q1').val()),
                     parseInt($('#q2').val()),
@@ -126,11 +163,26 @@
                     parseInt($('#q4').val()),
                 ]
             }
-            console.log(data.answers)
+
             $.post('/api/survey', data)
                 .then(function(response) {
                     var modal = M.Modal.getInstance($('.modal'))
                     
+                    $('.modal-content').empty();
+                    
+                    var header = $('<h4>').text('You matched with:');
+                    
+                    var matchImg = $('<img>')
+                        .attr('src', response.image_url);
+                    
+                    var matchText = $('<p>')
+                        .text(response.about);
+
+                    $('.modal-content')
+                        .append(header)
+                        .append(matchImg)
+                        .append(matchText);
+
                     modal.open();
                 });
         });
