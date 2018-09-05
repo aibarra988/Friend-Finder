@@ -173,7 +173,8 @@
                     var header = $('<h4>').text('You matched with:');
                     
                     var matchImg = $('<img>')
-                        .attr('src', response.image_url);
+                        .attr('src', response.image_url)
+                        .attr('width', 250);
                     
                     var matchText = $('<p>')
                         .text(response.about);
