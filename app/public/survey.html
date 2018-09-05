@@ -127,15 +127,12 @@
                 ]
             }
             console.log(data.answers)
-            $.ajax({
-                method: 'POST',
-                data: data,
-                url: '/api/survey'
-            }).then(function(response) {
-                var modal = M.Modal.getInstance($('.modal'))
-                
-                modal.open();
-            });
+            $.post('/api/survey', data)
+                .then(function(response) {
+                    var modal = M.Modal.getInstance($('.modal'))
+                    
+                    modal.open();
+                });
         });
     </script>
 </body>

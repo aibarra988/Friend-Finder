@@ -3,8 +3,8 @@ const path = require('path');
 
 const router = express.Router();
 
-const findMatch = body => {
-    console.log(body);
+const findMatch = req => {
+    
 };
 
 router.get('/api/image', (req, res) => {
@@ -12,7 +12,7 @@ router.get('/api/image', (req, res) => {
 });
 
 router.post('/api/survey', (req, res) => {
-    findMatch(req.body);
+    console.log(req.body);
     res.status(200).end();
 });
 
