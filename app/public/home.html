@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- jquery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <!-- materialize -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+        .container.main {
+            flex: 1 0 auto;
+        }
+    
+        nav ul a,
+        nav .brand-logo {
+            color: #444;
+        }
+    
+        p {
+            line-height: 2rem;
+        }
+    
+        .sidenav-trigger {
+            color: #26a69a;
+        }
+    
+        .parallax-container {
+            min-height: 380px;
+            line-height: 0;
+            height: auto;
+            color: rgba(255, 255, 255, .9);
+        }
+    
+        .parallax-container .section {
+            width: 100%;
+        }
+    
+        @media only screen and (max-width: 992px) {
+            .parallax-container .section {
+                position: absolute;
+                top: 40%;
+            }
+            #index-banner .section {
+                top: 10%;
+            }
+        }
+    
+        @media only screen and (max-width: 600px) {
+            #index-banner .section {
+                top: 0;
+            }
+        }
+    
+        .icon-block {
+            padding: 0 15px;
+        }
+    
+        .icon-block .material-icons {
+            font-size: inherit;
+        }
+    
+        footer.page-footer {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="index-banner" class="parallax-container">
+        <div class="section no-pad-bot">
+            <div class="container">
+                <br>
+                <br>
+                <h1 class="header center teal-text text-lighten-2">Friend-Finder</h1>
+                <div class="row center">
+                    <h5 class="header col s12 light">A modern to meeting people in the 21st century</h5>
+                </div>
+                <div class="row center">
+                    <a href="/survey" id="download-button" class="btn-large waves-effect waves-light teal lighten-1">Get Started</a>
+                </div>
+                <br>
+                <br>
+
+            </div>
+        </div>
+        <div class="parallax">
+            <img src="api/image" alt="Unsplashed background img 1">
+        </div>
+    </div>
+
+
+    <div class="container main">
+        <div class="section">
+
+            <!--   Icon Section   -->
+            <div class="row">
+                <div class="col s12 m4">
+                    <div class="icon-block">
+                        <h2 class="center brown-text">
+                            <i class="material-icons">flash_on</i>
+                        </h2>
+                        <h5 class="center">Make friends in a flash</h5>
+
+                    </div>
+                </div>
+
+                <div class="col s12 m4">
+                    <div class="icon-block">
+                        <h2 class="center brown-text">
+                            <i class="material-icons">group</i>
+                        </h2>
+                        <h5 class="center">User Experience Focused</h5>
+
+                    </div>
+                </div>
+
+                <div class="col s12 m4">
+                    <div class="icon-block">
+                        <h2 class="center brown-text">
+                            <i class="material-icons">settings</i>
+                        </h2>
+                        <h5 class="center">Easy to work with</h5>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer class="page-footer teal">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">About Friend-Finder</h5>
+                    <p class="grey-text text-lighten-4">We are a company whose prerogative is to find you a suitable friend in your times of need. We gather a pool of people interested in making new connections and we find a best match for you based on a few short questions.</p>
+                </div>
+                
+                
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container">
+                Made with Materialize
+            </div>
+        </div>
+    </footer>
+
+    <!--  Scripts-->
+    <script>
+        (function ($) {
+            $(function () {
+
+                $('.sidenav').sidenav();
+                $('.parallax').parallax();
+
+            }); // end of document ready
+        })(jQuery); // end of jQuery name space
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,142 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- jquery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <!-- materialize -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <!-- Modal Structure -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <h4>Modal Header</h4>
+            <p>A bunch of text</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <form class="col s12">
+            <div class="row">
+                <div class="input-field col s6">
+                    <input placeholder="First Name" id="first_name" type="text"  required>
+                    <label for="first_name">First Name</label>
+                </div>
+                <div class="input-field col s6">
+                    <input id="last_name" type="text" class="validate" required>
+                    <label for="last_name">Last Name</label>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col s12">
+                    <div class="input-field col s12">
+                        <select id="q1" required>
+                            <option value="" disabled selected>Choose your option</option>
+                            <option value="1">Option 1</option>
+                            <option value="2">Option 2</option>
+                            <option value="3">Option 3</option>
+                        </select>
+                        <label>Materialize Select</label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col s12">
+                    <div class="input-field col s12">
+                        <select id="q2" required>
+                            <option value="" disabled selected>Choose your option</option>
+                            <option value="1">Option 1</option>
+                            <option value="2">Option 2</option>
+                            <option value="3">Option 3</option>
+                        </select>
+                        <label>Materialize Select</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s12">
+                    <div class="input-field col s12 required">
+                        <select id="q3" required>
+                            <option value="" disabled selected>Choose your option</option>
+                            <option value="1">Option 1</option>
+                            <option value="2">Option 2</option>
+                            <option value="3">Option 3</option>
+                        </select>
+                        <label>Materialize Select</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s12">
+                    <div class="input-field col s12">
+                        <select id="q4" required>
+                            <option value="" disabled selected>Choose your option</option>
+                            <option value="1">Option 1</option>
+                            <option value="2">Option 2</option>
+                            <option value="3">Option 3</option>
+                        </select>
+                        <label>Materialize Select</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row center-align">
+                <button class="btn waves-effect waves-light" type="submit">Submit
+                    <i class="material-icons right">send</i>
+                </button>
+            </div>
+
+        </form>
+    </div>
+    <script>
+        $(document).ready(function(){
+            $('select').formSelect();
+            $('.modal').modal();
+
+            // Materialize fix for HTML5 "required" attribute 
+            $("select[required]").css({
+                display: "inline",
+                height: 0,
+                padding: 0,
+                width: 0
+            });
+        });
+
+        $('form').on('submit', function(e) {
+            e.preventDefault();
+
+            var data = {
+                first_name: $('#first_name').val(),
+                last_name: $('#last_name').val(),
+                answers: [
+                    parseInt($('#q1').val()),
+                    parseInt($('#q2').val()),
+                    parseInt($('#q3').val()),
+                    parseInt($('#q4').val()),
+                ]
+            }
+            console.log(data.answers)
+            $.ajax({
+                method: 'POST',
+                data: data,
+                url: '/api/survey'
+            }).then(function(response) {
+                var modal = M.Modal.getInstance($('.modal'))
+                
+                modal.open();
+            });
+        });
+    </script>
+</body>
+</html>
