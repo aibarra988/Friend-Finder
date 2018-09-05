@@ -45,7 +45,7 @@ let friends = [
         name: "Tyrone Biggums",
         image_url: "https://memegenerator.net/img/images/10817547.jpg",
         answers: [1, 1, 1, 1],
-        about: "Y'all got any more of the lines of code?"
+        about: "Y'all got any more of them lines of code?"
     },
     {
         name: "Mr. Poopybutthole",

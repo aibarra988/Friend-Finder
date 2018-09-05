@@ -42,7 +42,7 @@
             <h4>You matched with:</h4>
         </div>
         <div class="modal-footer">
-            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+            <a href="/survey" class="modal-close waves-effect waves-green btn-flat">Agree</a>
         </div>
     </div>
 
@@ -51,7 +51,7 @@
             <div class="row">
                 <div class="input-field col s6">
                     <input placeholder="Name" id="name" type="text"  required>
-                    <label for="name">First Name</label>
+                    <label for="name">Name</label>
                 </div>
                 <div class="input-field col s6">
                     <input placeholder="example.com/foo.jpg" id="image_url" type="text" class="validate" required>
@@ -135,6 +135,13 @@
         </form>
     </div>
     <script>
+
+        function clearForm() {
+            $('#name').val('');
+            $('#image_url').val('');
+            $('#about').val('');
+        }
+
         $(document).ready(function(){
             $('.sidenav').sidenav();
             $('select').formSelect();
@@ -171,6 +178,7 @@
                     $('.modal-content').empty();
                     
                     var header = $('<h4>').text('You matched with:');
+                    var name = $('<h5>').text(response.name);
                     
                     var matchImg = $('<img>')
                         .attr('src', response.image_url)
@@ -181,10 +189,12 @@
 
                     $('.modal-content')
                         .append(header)
+                        .append(name)
                         .append(matchImg)
                         .append(matchText);
 
                     modal.open();
+                    clearForm();
                 });
         });
     </script>
